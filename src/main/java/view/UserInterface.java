@@ -45,7 +45,8 @@ public class UserInterface {
     public void view(){
         //ArrayList<Carriage> newCarriages = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello user! Create passenger train, please!");
+        System.out.println("Hello user! Choose locale, please {en, ua, ru}");
+        System.out.println("Create passenger train, please!");
         System.out.println("Input train name, please:");
         String trainName = scanner.nextLine();
         System.out.println("Create your first carriage, please:");
