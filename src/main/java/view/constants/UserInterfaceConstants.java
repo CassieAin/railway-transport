@@ -5,6 +5,7 @@ public interface UserInterfaceConstants {
         String INTRODUCTION = "Hello, user!";
         String GOODBYE = "Goodbye!";
         String MENU_CASE_0 = "menu.case.0";
+        String MENU_CASE_0_1 = "menu.case.0.1";
         String MENU_CASE_1 = "menu.case.1";
         String MENU_CASE_2 = "menu.case.2";
         String MENU_CASE_3 = "menu.case.3";
@@ -12,6 +13,8 @@ public interface UserInterfaceConstants {
         String MENU_CASE_5 = "menu.case.5";
         String MENU_CASE_6 = "menu.case.6";
         String MENU_CASE_7 = "menu.case.7";
+        String MENU_CASE_8 = "menu.case.8";
+        String MENU_CHOOSE = "menu.choose";
     }
 
     interface InputConstants {
@@ -25,5 +28,6 @@ public interface UserInterfaceConstants {
         String CHANGE_LOCALE = "input.change.locale";
         String WRONG_INPUT_MESSAGE = "input.wrong";
         String CARRIAGE_ADDED = "input.carriage.added";
+        String TRAIN_CREATED = "input.train.created";
     }
 }

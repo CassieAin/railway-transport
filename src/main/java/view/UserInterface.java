@@ -4,12 +4,19 @@ import model.Carriage;
 import model.LevelOfComfort;
 import model.PassengerTrain;
 import model.Transport;
+import services.ResourceManager;
 import services.TransportManipulator;
+import view.exceptions.WrongInputException;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
-public class UserInterface {
+import static view.constants.UserInterfaceConstants.InputConstants.*;
+import static view.constants.UserInterfaceConstants.MenuConstants.*;
+
+public class UserInterface{
+    public ResourceManager manager = ResourceManager.INSTANCE;
 
     static{
         Carriage[] arr = {
@@ -20,57 +27,69 @@ public class UserInterface {
         };
     }
 
-    private ArrayList<Carriage>  addCarriage( ){
+    public void changeLocale(){
+        System.out.println(manager.getValue(CHANGE_LOCALE));
+        manager.changeResource(new Locale(new Scanner(System.in).nextLine()));
+    }
+
+
+    private ArrayList<Carriage> addCarriage( ){
         Scanner scanner = new Scanner(System.in);
         ArrayList<Carriage> carriages = new ArrayList<>();
-        System.out.println("Input Level of comfort");
+        System.out.println(manager.getValue(INPUT_LEVEL_OF_COMFORT));
         System.out.println();
         String level = scanner.nextLine();
-        LevelOfComfort x = LevelOfComfort.valueOf(level.toUpperCase().trim());
+        LevelOfComfort comfortLevel = LevelOfComfort.valueOf(level.toUpperCase().trim());
 
-        System.out.println("Input carriage number");
-        int carnum = scanner.nextInt();
+        System.out.println(manager.getValue(INPUT_CARRIAGE_NUMBER));
+        int carriageNumber = scanner.nextInt();
 
 
-        System.out.println("Input Luggage Quantity");
-        int lugq = scanner.nextInt();
+        System.out.println(manager.getValue(INPUT_LUGGAGE_QUANTITY));
+        int luggageQuantity = scanner.nextInt();
 
-        System.out.println("Input Passengers Quantity");
-        int pass = scanner.nextInt();
+        System.out.println(manager.getValue(INPUT_PASSENGERS_QUANTITY));
+        int passengersQuantity = scanner.nextInt();
 
-        carriages.add(new Carriage(carnum, lugq, pass, x));
+        carriages.add(new Carriage(carriageNumber, luggageQuantity, passengersQuantity, comfortLevel));
         return carriages;
     }
 
-    public void view(){
-        //ArrayList<Carriage> newCarriages = new ArrayList<>();
+    public void view() throws WrongInputException {
+        changeLocale();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello user! Choose locale, please {en, ua, ru}");
-        System.out.println("Create passenger train, please!");
-        System.out.println("Input train name, please:");
+        System.out.println(manager.getValue(MENU_CASE_0));
+        System.out.println(manager.getValue(INPUT_TRAIN_NAME));
         String trainName = scanner.nextLine();
-        System.out.println("Create your first carriage, please:");
+        System.out.println(manager.getValue(MENU_CASE_0_1));
         ArrayList<Carriage> newCarriages = addCarriage();
-        Transport transport = new PassengerTrain("new train", newCarriages);
+        Transport transport = new PassengerTrain(trainName, newCarriages);
         TransportManipulator manipulator = new TransportManipulator(transport);
 
-        System.out.println("Train " + trainName + " was successfully created");
+        System.out.println(manager.getValue(TRAIN_CREATED));
         while(true){
-            System.out.println("\n1 - Display the train information");
-            System.out.println("2 - Add carriage");
-            System.out.println("3 - Display the quantity of luggage");
-            System.out.println("4 - Display the quantity of passengers");
-            System.out.println("5 - Display train carriages sorted by comfort level");
-            System.out.println("6 - Find carriages for a range of passengers");
-            System.out.println("7 - Exit");
-            System.out.println("Choose option, please:");
+            System.out.println();
+            System.out.println(manager.getValue(MENU_CASE_1));
+            System.out.println(manager.getValue(MENU_CASE_2));
+            System.out.println(manager.getValue(MENU_CASE_3));
+            System.out.println(manager.getValue(MENU_CASE_4));
+            System.out.println(manager.getValue(MENU_CASE_5));
+            System.out.println(manager.getValue(MENU_CASE_6));
+            System.out.println(manager.getValue(MENU_CASE_7));
+            System.out.println(manager.getValue(MENU_CASE_8));
+            System.out.println(manager.getValue(MENU_CHOOSE));
             int option = scanner.nextInt();
+
+            if(option > 8 || option < 1)
+                throw new WrongInputException();
+
             switch(option){
                 case 1:
                     System.out.println(transport);
                     break;
                 case 2:
                     newCarriages.addAll(addCarriage());
+                    System.out.println(manager.getValue(CARRIAGE_ADDED));
                     break;
                 case 3:
                     System.out.println(manipulator.getLuggageQuantity());
@@ -83,9 +102,9 @@ public class UserInterface {
                     System.out.println(transport);
                     break;
                 case 6:
-                    System.out.println("Input the first number of the range");
+                    System.out.println(manager.getValue(INPUT_FIRST_NUMBER));
                     int first = scanner.nextInt();
-                    System.out.println("Input the second number of the range");
+                    System.out.println(manager.getValue(INPUT_SECOND_NUMBER));
                     int second = scanner.nextInt();
                     ArrayList<Carriage> foundCarriages = manipulator.findCarriagesInRange(first, second);
                     for(Carriage c : foundCarriages){
@@ -93,13 +112,15 @@ public class UserInterface {
                     }
                     break;
                 case 7:
+                    changeLocale();
+                    break;
+                case 8:
                     System.exit(0);
                     break;
-
-
+                default:
+                    System.out.println(manager.getValue(WRONG_INPUT_MESSAGE));
+                    break;
             }
         }
-
-
     }
 }
