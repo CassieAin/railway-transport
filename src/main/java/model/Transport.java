@@ -36,7 +36,7 @@ public abstract class Transport{
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", carriages=" + carriages;
+        return "" + name + '\n' +
+                "" + carriages;
     }
 }

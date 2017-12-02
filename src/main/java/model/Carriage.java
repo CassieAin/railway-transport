@@ -51,10 +51,10 @@ public class Carriage {
 
     @Override
     public String toString() {
-        return "{carriageNumber=" + carriageNumber +
-                ", luggageQuantity=" + luggageQuantity +
-                ", passengersQuantity=" + passengersQuantity +
-                ", levelOfComfort=" + levelOfComfort +
+        return "{" + carriageNumber +
+                ", " + luggageQuantity +
+                ", " + passengersQuantity +
+                ", " + levelOfComfort +
                 '}';
     }
 }

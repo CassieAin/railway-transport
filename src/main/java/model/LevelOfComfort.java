@@ -1,5 +1,7 @@
 package model;
 
 public enum LevelOfComfort {
-    BUSINESS, ECONOM;
+    BUSINESS, ECONOM,
+    БИЗНЕС, ЭКОНОМ,
+    БІЗНЕС, ЕКОНОМ;
 }

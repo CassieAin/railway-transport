@@ -32,18 +32,19 @@ public class UserInterface{
         manager.changeResource(new Locale(new Scanner(System.in).nextLine()));
     }
 
+    private void displayTrain(){
+        System.out.println(manager.getValue(OUTPUT_TRAIN));
+    }
 
     private ArrayList<Carriage> addCarriage( ){
         Scanner scanner = new Scanner(System.in);
         ArrayList<Carriage> carriages = new ArrayList<>();
         System.out.println(manager.getValue(INPUT_LEVEL_OF_COMFORT));
-        System.out.println();
         String level = scanner.nextLine();
         LevelOfComfort comfortLevel = LevelOfComfort.valueOf(level.toUpperCase().trim());
 
         System.out.println(manager.getValue(INPUT_CARRIAGE_NUMBER));
         int carriageNumber = scanner.nextInt();
-
 
         System.out.println(manager.getValue(INPUT_LUGGAGE_QUANTITY));
         int luggageQuantity = scanner.nextInt();
@@ -53,6 +54,13 @@ public class UserInterface{
 
         carriages.add(new Carriage(carriageNumber, luggageQuantity, passengersQuantity, comfortLevel));
         return carriages;
+    }
+
+    private void viewTrain(Transport transport){
+        System.out.println(manager.getValue(OUTPUT_TRAIN));
+        System.out.println(transport.getName());
+        System.out.println(manager.getValue(OUTPUT_CARRIAGE));
+        System.out.println(transport.getCarriages());
     }
 
     public void view() throws WrongInputException {
@@ -85,7 +93,7 @@ public class UserInterface{
 
             switch(option){
                 case 1:
-                    System.out.println(transport);
+                    viewTrain(transport);
                     break;
                 case 2:
                     newCarriages.addAll(addCarriage());
@@ -99,7 +107,7 @@ public class UserInterface{
                     break;
                 case 5:
                     manipulator.sortCarriagesByComfortLevel();
-                    System.out.println(transport);
+                    viewTrain(transport);
                     break;
                 case 6:
                     System.out.println(manager.getValue(INPUT_FIRST_NUMBER));
@@ -107,8 +115,9 @@ public class UserInterface{
                     System.out.println(manager.getValue(INPUT_SECOND_NUMBER));
                     int second = scanner.nextInt();
                     ArrayList<Carriage> foundCarriages = manipulator.findCarriagesInRange(first, second);
-                    for(Carriage c : foundCarriages){
-                        System.out.println(c);
+                    System.out.println(manager.getValue(OUTPUT_CARRIAGE));
+                    for(Carriage carriage : foundCarriages){
+                        System.out.println(carriage);
                     }
                     break;
                 case 7:

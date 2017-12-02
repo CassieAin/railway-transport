@@ -15,6 +15,8 @@ public interface UserInterfaceConstants {
         String MENU_CASE_7 = "menu.case.7";
         String MENU_CASE_8 = "menu.case.8";
         String MENU_CHOOSE = "menu.choose";
+        String OUTPUT_CARRIAGE = "output.carriage";
+        String OUTPUT_TRAIN = "output.train";
     }
 
     interface InputConstants {
